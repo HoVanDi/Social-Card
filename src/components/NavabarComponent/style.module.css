@@ -1,0 +1,53 @@
+.Navbar {
+  justify-content: end;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 52px;
+}
+
+.BtnAdd {
+  margin-right: 20px;
+  padding: 15px 30px;
+  color: #fff;
+  font-family: Segoe UI;
+  font-size: 15px;
+  font-weight: 400;
+  border-radius: 10px;
+  background: #064ebc;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+}
+
+.BtnAdd:hover {
+  cursor: pointer;
+}
+
+input[type="text"] {
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  outline: none;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 124px 17px 14px;
+  position: relative;
+}
+
+.Search {
+  display: flex;
+  align-items: center;
+}
+
+.IconSearch {
+  position: absolute;
+  right: 14px;
+}
+
+.SearchName input::placeholder {
+  color: #dfdfdf;
+  font-family: Segoe UI;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}

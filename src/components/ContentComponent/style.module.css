@@ -1,0 +1,76 @@
+.Body {
+    gap: 88px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .Header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .Profile {
+    margin-right: 95px;
+    color: #000;
+    font-family: Segoe UI;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+  }
+  
+  .Profile img {
+    margin-right: 15px;
+  }
+  
+  .Profile .Birthday {
+    margin-top: 4px;
+    color: #5b7083;
+    font-size: 14px;
+  }
+  
+  .EditIcon {
+    margin-right: 17px;
+  }
+  
+  .Header .Icon {
+    display: flex;
+    align-items: center;
+  }
+  
+  .TextContent {
+    max-width: 310px;
+    color: #000;
+    font-family: Segoe UI;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 15px;
+  }
+  
+  .Content {
+    margin-bottom: 52px;
+  }
+  
+  .SearchUndefined {
+    color: #000;
+    margin: 0 auto;
+    text-align: center;
+    font-family: Segoe UI;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .SearchUndefined .TextResult {
+    color: #064ebc;
+    font-size: 25px;
+  }
+  
+  .SearchUndefined .Messenger {
+    color: #000;
+    font-size: 18px;
+  }
+  
