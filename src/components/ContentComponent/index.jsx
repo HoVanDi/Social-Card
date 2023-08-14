@@ -1,16 +1,13 @@
 import React from "react";
 import styles from "./style.module.css";
 
-const index = () => {
+const Index = () => {
   return (
     <div className={styles.Body}>
       <div className={styles.Content}>
         <div className={styles.Header}>
           <div className={styles.Profile}>
-            <img
-              src="Images/Nguyen-Img.svg"
-              alt
-            />
+            <img src="Images/Nguyen-Img.svg" alt />
             <div>
               <div className={styles.Name}>Phu Nguyen</div>
               <div className={styles.Birthday}>14/08/2023</div>
@@ -18,16 +15,10 @@ const index = () => {
           </div>
           <div className={styles.Icon}>
             <div className={styles.EditIcon}>
-              <img
-                src='Images/Edit-icon.svg'
-                alt
-              />
+              <img src="Images/Edit-icon.svg" alt />
             </div>
             <div className={styles.DeleteIcon}>
-              <img
-                src='Images/Delete-icon.svg'
-                alt
-              />
+              <img src="Images/Delete-icon.svg" alt />
             </div>
           </div>
         </div>
@@ -36,21 +27,14 @@ const index = () => {
           readable content of a page when looking at its layout.
         </div>
         <div className={styles.img}>
-          <img
-            src='Images/NguyenContent-img.svg'
-            alt
-          />
+          <img src="Images/NguyenContent-img.svg" alt />
         </div>
       </div>
-
 
       <div className={styles.Content}>
         <div className={styles.Header}>
           <div className={styles.Profile}>
-            <img
-              src='Images/Varen-profile.svg'
-              alt
-            />
+            <img src="Images/Varen-profile.svg" alt />
             <div>
               <div className={styles.Name}>Varen</div>
               <div className={styles.Birthday}>14/08/2023</div>
@@ -58,16 +42,10 @@ const index = () => {
           </div>
           <div className={styles.Icon}>
             <div className={styles.EditIcon}>
-              <img
-                src='Images/Edit-icon.svg'
-                alt
-              />
+              <img src="Images/Edit-icon.svg" alt />
             </div>
             <div className={styles.DeleteIcon}>
-              <img
-                src='Images/Delete-icon.svg'
-                alt
-              />
+              <img src="Images/Delete-icon.svg" alt />
             </div>
           </div>
         </div>
@@ -76,21 +54,14 @@ const index = () => {
           tin: Avatar, Name, Description, Image.
         </div>
         <div className={styles.img}>
-          <img
-            src='Images/Varen-img.svg'
-            alt
-          />
+          <img src="Images/Varen-img.svg" alt />
         </div>
       </div>
-
 
       <div className={styles.Content}>
         <div className={styles.Header}>
           <div className={styles.Profile}>
-            <img
-              src='Images/Mio-profile.svg'
-              alt
-            />
+            <img src="Images/Mio-profile.svg" alt />
             <div>
               <div className={styles.Name}>Mio</div>
               <div className={styles.Birthday}>14/08/2023</div>
@@ -98,16 +69,10 @@ const index = () => {
           </div>
           <div className={styles.Icon}>
             <div className={styles.EditIcon}>
-              <img
-                src='Images/Edit-icon.svg'
-                alt
-              />
+              <img src="Images/Edit-icon.svg" alt />
             </div>
             <div className={styles.DeleteIcon}>
-              <img
-                src='Images/Delete-icon.svg'
-                alt
-              />
+              <img src="Images/Delete-icon.svg" alt />
             </div>
           </div>
         </div>
@@ -117,14 +82,11 @@ const index = () => {
           challenge..
         </div>
         <div className={styles.img}>
-          <img
-            src='Images/Mio-img.svg'
-            alt
-          />
+          <img src="Images/Mio-img.svg" alt />
         </div>
       </div>
 
-      {/* <div className={styles.SearchUndefined}>
+      <div className={styles.SearchUndefined}>
       <img
         src='Images/Error-img.svg'
         alt
@@ -133,9 +95,9 @@ const index = () => {
       <div className={styles.Messenger}>
         No content matched your criteria. Try searching for something else.
       </div>
-    </div> */}
+    </div>
     </div>
   );
 };
 
-export default index;
+export default Index;

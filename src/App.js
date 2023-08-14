@@ -1,16 +1,22 @@
-
-import NavabarComonent from "./components/NavabarComponent";
+import React, { useState } from "react";
+import "./SocialCard.css";
 import ContentComponent from "./components/ContentComponent";
-import "./SocialCard.css"
+import NavabarComonent from "./components/NavabarComponent";
 
 function App() {
+  const [searchData, setSearchData] = useState(""); // State lưu trữ dữ liệu tìm kiếm
+
+  const handleSearch = (searchTerm) => {
+    setSearchData(searchTerm);
+  };
+
   return (
-    <div className='Container'>
-      <div className='Title'>LIST SOCIAL CARD</div>
+    <div className="Container">
+      <div className="Title">LIST SOCIAL CARD</div>
 
-      <NavabarComonent></NavabarComonent>
+      <NavabarComonent onSearch={handleSearch}></NavabarComonent>
 
-      <ContentComponent></ContentComponent>
+      <ContentComponent searchData={searchData}></ContentComponent>
     </div>
   );
 }

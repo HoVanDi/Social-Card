@@ -44,6 +44,10 @@ input[type="text"] {
   right: 14px;
 }
 
+.IconSearch {
+  cursor: pointer;
+}
+
 .SearchName input::placeholder {
   color: #dfdfdf;
   font-family: Segoe UI;
