@@ -4,7 +4,7 @@ import ContentComponent from "./components/ContentComponent";
 import NavabarComonent from "./components/NavabarComponent";
 
 function App() {
-  const [searchData, setSearchData] = useState(""); // State lưu trữ dữ liệu tìm kiếm
+  const [searchData, setSearchData] = useState(""); // State stores the search data
 
   const handleSearch = (searchTerm) => {
     setSearchData(searchTerm);
