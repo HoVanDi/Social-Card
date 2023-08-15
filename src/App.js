@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./SocialCard.css";
-import ContentComponent from "./components/ContentComponent";
-import NavabarComonent from "./components/NavabarComponent";
+// import ContentComponent from "./components/ContentComponent";
+// import NavbarComonent from "./components/NavbarComponent";
+import ModalComponent from "./components/ModalComponent";
 
 function App() {
   const [searchData, setSearchData] = useState(""); // State stores the search data
@@ -11,13 +12,19 @@ function App() {
   };
 
   return (
+    <div>
     <div className="Container">
-      <div className="Title">LIST SOCIAL CARD</div>
+      {/* <div className="Title">LIST SOCIAL CARD</div> */}
 
-      <NavabarComonent onSearch={handleSearch}></NavabarComonent>
+      {/* <NavbarComonent onSearch={handleSearch}></NavbarComonent>
 
-      <ContentComponent searchData={searchData}></ContentComponent>
+      <ContentComponent searchData={searchData}></ContentComponent> */}
     </div>
+    <ModalComponent></ModalComponent>
+    
+    </div>
+
+
   );
 }
 

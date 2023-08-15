@@ -13,14 +13,18 @@ const Index = ({ onSearch }) => {
       <div className={styles.Search}>
         <div className={styles.SearchName}>
           <input
-            type="text"
-            placeholder="Search name..."
+            type='text'
+            placeholder='Search name...'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <div className={styles.IconSearch}>
-          <img src="Images/Search-img.svg" alt="" onClick={handleSearch} />
+          <img
+            src='Images/Search-img.svg'
+            alt=''
+            onClick={handleSearch}
+          />
         </div>
       </div>
     </div>

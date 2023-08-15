@@ -23,15 +23,15 @@
 }
 
 input[type="text"] {
-  border-radius: 14px;
+  border-radius: 10px;
   background: #fff;
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   outline: none;
   border: none;
+  font-size: 16px;
   width: 100%;
   box-sizing: border-box;
-  padding: 18px 124px 17px 14px;
-  position: relative;
+  padding:15px 95px 14px 24px;
 }
 
 .Search {
