@@ -1,7 +1,15 @@
-import React from "react";
+// import React from "react";
 import styles from "./style.module.css";
+import React, { useEffect } from "react";
 
-const Index = () => {
+const Index = (  { setShowContainer }) => {
+  useEffect(() => {
+    setShowContainer(false); // Hide Container in CardDetail page
+    return () => {
+      setShowContainer(true); // Reset when leaving CardDetail page
+    };
+  }, [setShowContainer]);
+
   return (
     <div className={styles.Container}>
       <div className={styles.Header}>SOCIAL CARD DETAIL</div>

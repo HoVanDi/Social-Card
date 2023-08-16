@@ -8,6 +8,11 @@
   margin: 0 auto;
 }
 
+.Content {
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .Header {
   justify-content: space-between;
   display: flex;
@@ -64,4 +69,3 @@
 .Content {
   margin-bottom: 52px;
 }
-

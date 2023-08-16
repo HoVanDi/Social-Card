@@ -1,9 +1,10 @@
 import React from "react";
-import styles from "./style.module.css";
-import { getData } from "../Data";
 import Modal from "react-modal";
+import { Link } from "react-router-dom";
+import { getData } from "../Data";
 import ModalAdd from "../ModalAdd";
 import ModalDelete from "../ModalDelete";
+import styles from "./style.module.css";
 
 const customStyles = {
   content: {
@@ -19,7 +20,8 @@ const customStyles = {
   },
 };
 
-const Index = () => {
+const Index = ({ setShowContainer }) => {
+  setShowContainer(true); // Show Container in Content page
   const data = getData();
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = React.useState(false); // Add state for delete modal
@@ -46,7 +48,7 @@ const Index = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel='Example Modal'
+        contentLabel="Example Modal"
       >
         <ModalAdd closeModal={closeModal}></ModalAdd>
       </Modal>
@@ -55,22 +57,16 @@ const Index = () => {
         isOpen={modalDeleteIsOpen}
         onRequestClose={closeDeleteModal}
         style={customStyles}
-        contentLabel='Delete Modal'
+        contentLabel="Delete Modal"
       >
         <ModalDelete closeModal={closeDeleteModal}></ModalDelete>
       </Modal>
 
       {data.map((item, index) => (
-        <div
-          key={index}
-          className={styles.Content}
-        >
-          <div className={styles.Header}>
+        <Link key={index} to="/CardDetail" className={styles.Content}>
+          <div key={index} className={styles.Header}>
             <div className={styles.Profile}>
-              <img
-                src={item.Profile}
-                alt={item.Name}
-              />
+              <img src={item.Profile} alt={item.Name} />
               <div>
                 <div className={styles.Name}>{item.Name}</div>
                 <div className={styles.Birthday}>{item.Birthday}</div>
@@ -80,15 +76,15 @@ const Index = () => {
               <div className={styles.EditIcon}>
                 <img
                   onClick={openModal}
-                  src='Images/Edit-icon.svg'
-                  alt='Edit'
+                  src="Images/Edit-icon.svg"
+                  alt="Edit"
                 />
               </div>
               <div className={styles.DeleteIcon}>
                 <img
                   onClick={openDeleteModal}
-                  src='Images/Delete-icon.svg'
-                  alt='Delete'
+                  src="Images/Delete-icon.svg"
+                  alt="Delete"
                 />
               </div>
             </div>
@@ -101,12 +97,9 @@ const Index = () => {
             {item.Description}
           </div>
           <div className={styles.img}>
-            <img
-              src={item.img}
-              alt='Image'
-            />
+            <img src={item.img} alt="Image" />
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
