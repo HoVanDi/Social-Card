@@ -1,0 +1,21 @@
+.SearchUndefined {
+    padding-top: 28px;
+    color: #000;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 50px;
+  }
+  
+  .SearchUndefined .TextResult {
+    color: #064ebc;
+    font-size: 25px;
+    margin: 20px 0 10px;
+  }
+  
+  .SearchUndefined .Messenger {
+    color: #000;
+    font-size: 18px;
+  }
+  
