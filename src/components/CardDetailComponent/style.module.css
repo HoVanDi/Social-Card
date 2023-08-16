@@ -1,8 +1,9 @@
 .Container {
   max-width: 1160px;
   margin: 0 auto;
-  align-items: center;
   color: #000000;
+  margin-top: 50px;
+  margin-bottom: 160px;
 }
 
 .Header {
@@ -84,8 +85,7 @@
 }
 
 .ContentComment:last-child .MessageComment:last-child {
-  padding-bottom: 15px;
-  /* margin-bottom: 30px; */
+  padding-bottom: 14px;
 }
 
 .PostComment {
@@ -94,16 +94,19 @@
   position: relative;
 }
 .TextPost {
+  margin-top: 30px;
   font: normal normal 600 18px/24px Segoe UI;
+  margin-bottom: 15px;
 }
 
 .PostComment textarea {
-  background: #ffffff 0% 0% no-repeat padding-box;
+  background: #fff 0 0 no-repeat padding-box;
   border: 1px solid #d9d9d9;
   border-radius: 10px;
-  width: 100%;
   outline: none;
-  padding: 20px 0px 94px;
+  box-sizing: border-box;
+  padding: 20px 0 94px 20px;
+  width: 100%;
 }
 
 .BtnPost {
@@ -121,7 +124,6 @@
 .CommentTextarea::placeholder {
   font: normal normal normal 13px/17px Segoe UI;
   color: #d9d9d9;
-  padding-left: 20px;
 }
 
 .BtnPost:hover {

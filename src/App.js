@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./SocialCard.css";
-// import ModalComponent from "./components/ModalComponent";
+import ModalComponent from "./components/ModalComponent";
 import CardDetailComponent from "./components/CardDetailComponent";
-// import ContentComponent from "./components/ContentComponent";
-// import NavbarComonent from "./components/NavbarComponent";
+import ContentComponent from "./components/ContentComponent";
+import NavbarComonent from "./components/NavbarComponent";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [searchData, setSearchData] = useState(""); // State stores the search data
@@ -13,20 +14,24 @@ function App() {
   };
 
   return (
-    <div>
-    <div className="Container">
-      {/* <div className="Title">LIST SOCIAL CARD</div> */}
+    <Router>
+      <div className='Container'>
+        <div className='Title'>LIST SOCIAL CARD</div>
+        <NavbarComonent onSearch={handleSearch}></NavbarComonent>
 
-      {/* <NavbarComonent onSearch={handleSearch}></NavbarComonent>
+        {/* <ContentComponent searchData={searchData}></ContentComponent> */}
+      </div>
+      {/* <ModalComponent></ModalComponent> */}
 
-      <ContentComponent searchData={searchData}></ContentComponent> */}
-    </div>
-    {/* <ModalComponent></ModalComponent> */}
-    
-    <CardDetailComponent></CardDetailComponent>
-    </div>
-
-
+      {/* <CardDetailComponent></CardDetailComponent> */}
+      <Routes>
+        <Route />
+        <Route
+          path='*'
+          element={<ContentComponent />}
+        />
+      </Routes>
+    </Router>
   );
 }
 

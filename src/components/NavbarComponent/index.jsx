@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./style.module.css";
+
 const Index = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
