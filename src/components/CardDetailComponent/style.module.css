@@ -1,0 +1,129 @@
+.Container {
+  max-width: 1160px;
+  margin: 0 auto;
+  align-items: center;
+  color: #000000;
+}
+
+.Header {
+  text-align: center;
+  font: normal normal bold 35px/47px Segoe UI;
+  margin-bottom: 20px;
+}
+
+.ProfileDetail {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.ProfileDetail img {
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.ProfileName {
+  font: normal normal 600 18px/24px Segoe UI;
+  margin-bottom: 5px;
+}
+
+.DayCreate {
+  font: normal normal normal 15px/20px Segoe UI;
+  color: #5b7083;
+}
+
+.Content {
+  font: normal normal normal 15px/20px Segoe UI;
+  margin-bottom: 20px;
+}
+
+.ContentImg {
+  margin: 0 auto;
+  margin-bottom: 31px;
+  display: flex;
+}
+.Icon {
+  padding-bottom: 28px;
+  display: flex;
+  border-bottom: 1px solid #d9d9d9;
+  margin-bottom: 30px;
+}
+
+.IconHeart {
+  margin-right: 25px;
+  display: flex;
+}
+
+.IconHeart img {
+  margin-right: 5px;
+}
+
+.IconMessage {
+  display: flex;
+}
+
+.IconMessage img {
+  margin-right: 5px;
+}
+
+.ContentComment {
+  font: normal normal normal 15px/20px Segoe UI;
+}
+
+.DayComment {
+  color: #5b7083;
+  margin-bottom: 5px;
+}
+
+.MessageComment {
+  margin-bottom: 15px;
+}
+
+.ContentComment:last-child {
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.ContentComment:last-child .MessageComment:last-child {
+  padding-bottom: 15px;
+  /* margin-bottom: 30px; */
+}
+
+.PostComment {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+.TextPost {
+  font: normal normal 600 18px/24px Segoe UI;
+}
+
+.PostComment textarea {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  width: 100%;
+  outline: none;
+  padding: 20px 0px 94px;
+}
+
+.BtnPost {
+  position: absolute;
+  right: 18px;
+  top: 62.5%;
+  font: normal normal bold 13px/17px Segoe UI;
+  color: #ffffff;
+  padding: 13px 25px;
+  background: #064ebc 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+}
+
+.CommentTextarea::placeholder {
+  font: normal normal normal 13px/17px Segoe UI;
+  color: #d9d9d9;
+  padding-left: 20px;
+}
+
+.BtnPost:hover {
+  cursor: pointer;
+}

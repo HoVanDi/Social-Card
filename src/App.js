@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./SocialCard.css";
+// import ModalComponent from "./components/ModalComponent";
+import CardDetailComponent from "./components/CardDetailComponent";
 // import ContentComponent from "./components/ContentComponent";
 // import NavbarComonent from "./components/NavbarComponent";
-import ModalComponent from "./components/ModalComponent";
 
 function App() {
   const [searchData, setSearchData] = useState(""); // State stores the search data
@@ -20,8 +21,9 @@ function App() {
 
       <ContentComponent searchData={searchData}></ContentComponent> */}
     </div>
-    <ModalComponent></ModalComponent>
+    {/* <ModalComponent></ModalComponent> */}
     
+    <CardDetailComponent></CardDetailComponent>
     </div>
 
 

@@ -68,7 +68,7 @@ const Index = () => {
     //       </div>
 
     //       <div className={styles.Btn}>
-    //         <div className={styles.SaveBtn}>Save</div>
+    //         <div className={styles.SaveBtn}>Delete</div>
     //         <div className={styles.CancelBtn}>Cancel</div>
     //       </div>
     //     </div>
