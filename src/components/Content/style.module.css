@@ -13,6 +13,10 @@
   text-decoration: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 .Header {
   justify-content: space-between;
   display: flex;

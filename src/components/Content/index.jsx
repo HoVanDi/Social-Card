@@ -14,7 +14,8 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: "0px",
-    border: "0px",
+    border: "none",
+    boxShadow: "none",
     background: "none",
   },
 };
@@ -61,23 +62,23 @@ const Index = () => {
       </Modal>
 
       {data.map((item, index) => (
-        <a href="./CardDetail"
-          className={styles.Content}
-        >
+        <div className={styles.Content}>
           <div
             key={index}
             className={styles.Header}
           >
-            <div className={styles.Profile}>
-              <img
-                src={item.Profile}
-                alt={item.Name}
-              />
-              <div>
-                <div className={styles.Name}>{item.Name}</div>
-                <div className={styles.Birthday}>{item.Birthday}</div>
+            <a href='./CardDetail'>
+              <div className={styles.Profile}>
+                <img
+                  src={item.Profile}
+                  alt={item.Name}
+                />
+                <div>
+                  <div className={styles.Name}>{item.Name}</div>
+                  <div className={styles.Birthday}>{item.Birthday}</div>
+                </div>
               </div>
-            </div>
+            </a>
             <div className={styles.Icon}>
               <div className={styles.EditIcon}>
                 <img
@@ -95,22 +96,22 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <div
-
-            className={`${styles.Description} ${
-              index === 2 ? styles.DescriptionMio : ""
-            }`}
-          >
-            <a href="./CardDetail"></a>
-            {item.Description}
-          </div>
-          <div className={styles.img}>
-            <img
-              src={item.img}
-              alt='Image'
-            />
-          </div>
-        </a>
+          <a href='./CardDetail'>
+            <div
+              className={`${styles.Description} ${
+                index === 2 ? styles.DescriptionMio : ""
+              }`}
+            >
+              {item.Description}
+            </div>
+            <div className={styles.img}>
+              <img
+                src={item.img}
+                alt='Image'
+              />
+            </div>
+          </a>
+        </div>
       ))}
     </div>
   );
