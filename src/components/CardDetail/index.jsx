@@ -2,7 +2,7 @@
 import styles from "./style.module.css";
 import React, { useEffect } from "react";
 
-const Index = (  { setShowContainer }) => {
+const Index = ({ setShowContainer }) => {
   useEffect(() => {
     setShowContainer(false); // Hide Container in CardDetail page
     return () => {

@@ -69,3 +69,17 @@
 .Content {
   margin-bottom: 52px;
 }
+
+@media (max-width: 768px) {
+  .Body {
+    gap: 30px;
+    margin: 0 20px;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .Body {
+    margin: 0 auto;
+  }
+}

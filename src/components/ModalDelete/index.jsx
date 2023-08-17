@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from "./style.module.css"
+import React from "react";
+import styles from "./style.module.css";
 
 const index = ({ closeModal }) => {
   return (
@@ -23,12 +23,17 @@ const index = ({ closeModal }) => {
 
           <div className={styles.Btn}>
             <div className={styles.SaveBtn}>Delete</div>
-            <div className={styles.CancelBtn} onClick={closeModal}>Cancel</div>
+            <div
+              className={styles.CancelBtn}
+              onClick={closeModal}
+            >
+              Cancel
+            </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default index
+export default index;

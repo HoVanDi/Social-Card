@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./style.module.css";
 
 const Index = ({ closeModal }) => {
-
-
   return (
     <div className={styles.NewCard}>
       <div className={styles.Modal}>
@@ -32,7 +30,7 @@ const Index = ({ closeModal }) => {
                 <div className={styles.CardInput}>
                   <textarea></textarea>
                 </div>
-                <div className={styles.ContentAvatar}>
+                <div className={`${styles.ContentAvatar} ${styles.ContentImg}`}>
                   <img
                     src='Images/Upload-solid.svg'
                     alt=''
@@ -45,12 +43,16 @@ const Index = ({ closeModal }) => {
 
           <div className={styles.Btn}>
             <div className={styles.SaveBtn}>Save</div>
-            <div className={styles.CancelBtn}onClick={closeModal}>Cancel</div>
+            <div
+              className={styles.CancelBtn}
+              onClick={closeModal}
+            >
+              Cancel
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   );
 };
 

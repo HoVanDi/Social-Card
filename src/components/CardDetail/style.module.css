@@ -129,3 +129,13 @@
 .BtnPost:hover {
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .ContentImg {
+    width: 310px;
+  }
+
+  .Container {
+    padding: 25px 20px;
+  }
+}

@@ -10,21 +10,24 @@ function App() {
   const [showContainer, setShowContainer] = useState(true);
   return (
     <Router>
-      <div className="App">
+      <div className='App'>
         {showContainer && (
-          <div className="Container">
-            <div className="Title">LIST SOCIAL CARD</div>
+          <div className='Container'>
+            <div className='Title'>LIST SOCIAL CARD</div>
             <Navbar />
           </div>
         )}
         <Routes>
           <Route
-            path="/"
+            path='/'
             element={<Content setShowContainer={setShowContainer} />}
           />
-          <Route path="/NotFound" element={<NotFound />} />
           <Route
-            path="/CardDetail"
+            path='/NotFound'
+            element={<NotFound />}
+          />
+          <Route
+            path='/CardDetail'
             element={<CardDetail setShowContainer={setShowContainer} />}
           />
         </Routes>

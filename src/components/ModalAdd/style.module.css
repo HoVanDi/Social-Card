@@ -138,3 +138,70 @@
 .DecriptionDelete {
   margin-bottom: 20px;
 }
+
+@media (max-width: 768px) {
+  .modalContent {
+    width: auto;
+  }
+
+  .ModalHeader {
+    margin-bottom: 25px;
+  }
+
+  .CardText li {
+    font: normal normal normal 17px/21px Segoe UI;
+    margin-bottom: 42px;
+  }
+
+  .ModalBody {
+    max-height: 100%;
+    position: relative;
+  }
+
+  .ContentAvatar {
+    position: absolute;
+    top: 27px;
+    left: 0px;
+  }
+
+  .ContentImg {
+    position: absolute;
+    top: 235px;
+    left: 0px;
+  }
+
+  .CardInput input {
+    position: absolute;
+    top: 83px;
+    left: 0;
+    min-width: 0;
+    font-size: 18px;
+    padding: 10px 6px;
+  }
+
+  .CardInput textarea {
+    position: absolute;
+    top: 161px;
+    left: 0;
+    font-size: 16px;
+    min-width: 0;
+    max-height: 46px;
+  }
+
+  .CardText li:nth-child(3) {
+    margin-bottom: 56px;
+  }
+
+  .CardText li:nth-child(2) {
+    margin-bottom: 50px;
+  }
+
+  .Btn {
+    margin-right: 90px;
+    margin-left: 90px;
+  }
+
+  .MainContent {
+    margin: 25px 33px 25px;
+  }
+}
