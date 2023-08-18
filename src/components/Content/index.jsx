@@ -4,7 +4,7 @@ import { getData } from "../Data";
 import Modal from "react-modal";
 import ModalAdd from "../ModalAdd";
 import ModalDelete from "../ModalDelete";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 const customStyles = {
   content: {
     top: "50%",
