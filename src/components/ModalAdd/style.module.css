@@ -52,7 +52,7 @@
   margin-bottom: 20px;
 }
 
-.ContentAvatar label{
+.ContentAvatar label {
   display: flex;
 }
 
@@ -97,7 +97,6 @@
   margin-bottom: 19px;
 }
 
-
 .SaveBtn button {
   background: #064ebc 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -128,15 +127,28 @@
 
 .hiddenInput {
   display: none;
-  }
-  
-  .uploadLabel {
+}
+
+.uploadLabel {
   display: inline-block;
   cursor: pointer;
-  }
+}
+
+.errorText {
+  color: #f3115e;
+  filter: brightness(0) saturate(100%) invert(59%) sepia(96%) saturate(6764%)
+    hue-rotate(338deg) brightness(99%) contrast(98%);
+}
+
+.errorInput input,
+.errorInput textarea {
+  border-color: #f3115e;
+}
+
+.errorIcon {
+}
 
 /* CSS card Delete */
-
 .DeleteBody {
   display: block;
   text-align: center;
@@ -158,6 +170,17 @@
 .DecriptionDelete {
   margin-bottom: 20px;
 }
+
+/* const url = await uploadFiles(profileImg.files);
+ console.log(profileImg.files);
+   addCard({
+     name: Name.value,
+     imgprofile: imgimgprofile.value,
+     imgcontent: imgimgprofile.url,
+   })
+  .then(()=>Router.navigate("/content"))
+  .catch((error)=>console.log(error))
+ */
 
 @media (max-width: 768px) {
   .modalContent {

@@ -37,16 +37,6 @@ const Index = ({ closeModal }) => {
       form.addEventListener("submit", async function (e) {
         e.preventDefault();
         uploadFiles(profileImg.files);
-
-        // const url = await uploadFiles(profileImg.files);
-        // console.log(profileImg.files);
-        //   addCard({
-        //     name: Name.value,
-        //     imgprofile: imgimgprofile.value,
-        //     imgcontent: imgimgprofile.url,
-        //   })
-        //  .then(()=>Router.navigate("/content"))
-        //  .catch((error)=>console.log(error))
       });
     }
   }, []); // Empty dependency array means this effect runs once after initial render
@@ -79,8 +69,33 @@ const Index = ({ closeModal }) => {
     }
   };
 
+  //  Validate
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [nameError, setNameError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
+
+  const handleNameChange = (event) => {
+    const value = event.target.value;
+    setName(value);
+    setNameError(value === "");
+  };
+
+  const handleDescriptionChange = (event) => {
+    const value = event.target.value;
+    setDescription(value);
+    setDescriptionError(value === "");
+  };
+  const handleSaveClick = () => {
+    setNameError(name === "");
+    setDescriptionError(description === "");
+  };
+
   return (
-    <form action="" id="form-add">
+    <form
+      action=''
+      id='form-add'
+    >
       <div className={styles.NewCard}>
         <div className={styles.Modal}>
           <div className={styles.modalContent}>
@@ -88,68 +103,99 @@ const Index = ({ closeModal }) => {
               <div className={styles.ModalHeader}>Add new card</div>
               <div className={styles.ModalBody}>
                 <div className={styles.CardText}>
-                  <li>Avatar</li>
-                  <li>Name</li>
-                  <li>Decription</li>
+                  <li className={!hasUploadedProfile ? styles.errorText : ""}>Avatar</li>
+                  <li className={nameError ? styles.errorText : ""}>Name</li>
+                  <li className={descriptionError ? styles.errorText : ""}>
+                    Decription
+                  </li>
                   <li>Image</li>
                 </div>
                 <div className={styles.CardInput}>
+
                   <div className={styles.ContentAvatar}>
                     <label
-                      htmlFor="upload-img-profile"
-                      className={styles.uploadLabel}
+                      htmlFor='upload-img-profile'
+                      className={`${styles.uploadLabel} ${!hasUploadedProfile ? styles.errorText : ""}`}
                     >
                       {hasUploadedProfile ? (
                         <>
-                          <img src="Images/Upload-solid.svg" alt="icon_arrow" />
+                          <img
+                            src='Images/Upload-solid.svg'
+                            alt='icon_arrow'
+                          />
                           <span>{uploadedImageNameProfile}</span>
                         </>
                       ) : (
                         <>
-                          <img src="Images/Upload-solid.svg" alt="icon_arrow" />
+                          <img
+                            src='Images/Upload-solid.svg'
+                            alt='icon_arrow'
+                            className={styles.errorIcon}
+                          />
                           <div className={styles.Decription}>Upload image</div>
                         </>
                       )}
                     </label>
                     <input
-                      type="file"
-                      id="upload-img-profile"
+                      type='file'
+                      id='upload-img-profile'
                       multiple
                       className={styles.hiddenInput}
                       onChange={handleImageUploadProfile}
                     />
                   </div>
 
-                  <div className={styles.CardInput}>
-                    <input type="text" />
+                  <div
+                    className={`${styles.CardInput} ${
+                      nameError ? styles.errorInput : ""
+                    }`}
+                  >
+                    <input
+                      type='text'
+                      value={name}
+                      onChange={handleNameChange}
+                    />
                   </div>
 
-                  <div className={styles.CardInput}>
-                    <textarea></textarea>
+                  <div
+                    className={`${styles.CardInput} ${
+                      descriptionError ? styles.errorInput : ""
+                    }`}
+                  >
+                    <textarea
+                      value={description}
+                      onChange={handleDescriptionChange}
+                    ></textarea>
                   </div>
 
                   <div
                     className={`${styles.ContentAvatar} ${styles.ContentImg}`}
                   >
                     <label
-                      htmlFor="upload-img-content"
+                      htmlFor='upload-img-content'
                       className={styles.uploadLabel}
                     >
                       {hasUploadedContent ? (
                         <>
-                          <img src="Images/Upload-solid.svg" alt="icon_arrow" />
+                          <img
+                            src='Images/Upload-solid.svg'
+                            alt='icon_arrow'
+                          />
                           <span>{uploadedImageNameContent}</span>
                         </>
                       ) : (
                         <>
-                          <img src="Images/Upload-solid.svg" alt="icon_arrow" />
+                          <img
+                            src='Images/Upload-solid.svg'
+                            alt='icon_arrow'
+                          />
                           <div className={styles.Decription}>Upload image</div>
                         </>
                       )}
                     </label>
                     <input
-                      type="file"
-                      id="upload-img-content"
+                      type='file'
+                      id='upload-img-content'
                       multiple
                       className={styles.hiddenInput}
                       onChange={handleImageUploadContent}
@@ -165,9 +211,17 @@ const Index = ({ closeModal }) => {
 
             <div className={styles.Btn}>
               <div className={styles.SaveBtn}>
-                <button type="submit">Save</button>
+                <button
+                  type='submit'
+                  onClick={handleSaveClick}
+                >
+                  Save
+                </button>
               </div>
-              <div className={styles.CancelBtn} onClick={closeModal}>
+              <div
+                className={styles.CancelBtn}
+                onClick={closeModal}
+              >
                 Cancel
               </div>
             </div>

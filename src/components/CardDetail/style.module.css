@@ -113,6 +113,7 @@
   position: absolute;
   right: 20px;
   top: 65.5%;
+  border-width: 0;
   font: normal normal bold 13px/17px Segoe UI;
   color: #ffffff;
   padding: 13px 25px;
@@ -128,6 +129,10 @@
 
 .BtnPost:hover {
   cursor: pointer;
+}
+
+textarea.errorPost{
+  border-color: #f3115e;
 }
 
 @media (max-width: 768px) {
