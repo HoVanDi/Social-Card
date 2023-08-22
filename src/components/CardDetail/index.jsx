@@ -3,14 +3,12 @@ import styles from "./style.module.css";
 import React, { useEffect, useState } from "react";
 
 const Index = ({ setShowContainer }) => {
-
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // Ngăn người dùng nhập xuống dòng trong textarea
-      handlePostClick(); // Thực hiện post comment khi nhấn Enter
+      event.preventDefault(); // Prevent user from entering newline in textarea
+      handlePostClick();
     }
   };
-
 
   useEffect(() => {
     setShowContainer(false); // Hide Container in CardDetail page
@@ -19,20 +17,20 @@ const Index = ({ setShowContainer }) => {
     };
   }, [setShowContainer]);
 
-
   useEffect(() => {
-    const existingComments = JSON.parse(localStorage.getItem("comments") || "[]");
+    const existingComments = JSON.parse(
+      localStorage.getItem("comments") || "[]"
+    );
     setMessageCount(existingComments.length);
   }, []);
-
 
   // const [comment, setComment] = useState("");
   const [commentError, setCommentError] = useState(false);
 
-  const [inputComment, setInputComment] = useState(""); // Biến mới để lưu nội dung comment trong ô input
+  const [inputComment, setInputComment] = useState(""); // New variable to save comment content in input box
   const handleCommentChange = (event) => {
     const value = event.target.value;
-    setInputComment(value); // Sử dụng biến newComment thay cho comment
+    setInputComment(value); // Use the variable newComment
     setCommentError(value === "");
   };
 
@@ -40,7 +38,7 @@ const Index = ({ setShowContainer }) => {
     if (!commentError && inputComment !== "") {
       setIsCommentPosted(true);
 
-      // Lưu comment vào local storage
+      // Save comments to local storage
       const currentDate = new Date();
       const formattedDate = `${currentDate.getDate()}/${
         currentDate.getMonth() + 1
@@ -50,27 +48,27 @@ const Index = ({ setShowContainer }) => {
         content: inputComment,
       };
 
-      // Lấy danh sách các comment từ local storage (nếu đã có)
+      // Get the list of comments from local storage (if any)
       const existingComments = JSON.parse(
         localStorage.getItem("comments") || "[]"
       );
 
-      // Thêm comment mới vào danh sách
+      // Add a new comment to the list
       existingComments.push(newComment);
 
-      // Lưu lại danh sách comment vào local storage
+      // Save the comment list to local storage
       localStorage.setItem("comments", JSON.stringify(existingComments));
 
-      // Cập nhật số lượng comment và thực hiện các xử lý khác khi post thành công
-      setMessageCount(existingComments.length); // Cập nhật số lượng comment
+      // Update the number of comments and perform other processing when the post is successful
+      setMessageCount(existingComments.length);
       setCommentError(false);
       setInputComment("");
     } else {
       setIsCommentPosted(false);
+      setCommentError(true);
     }
   };
 
-  // Số lượt nhấn mặc định là 2
   const [heartCount, setHeartCount] = useState(1);
   const [messageCount, setMessageCount] = useState(2);
   const [isCommentPosted, setIsCommentPosted] = useState(false);
@@ -133,7 +131,7 @@ const Index = ({ setShowContainer }) => {
       <div>
         {localStorage.getItem("comments") &&
           JSON.parse(localStorage.getItem("comments"))
-            .reverse() // Đảo ngược mảng các comment
+            .reverse()
             .map((comment, index) => (
               <div
                 className={`${styles.Comment} ${styles.ContentComment}`}
@@ -161,7 +159,7 @@ const Index = ({ setShowContainer }) => {
       <div className={styles.PostComment}>
         <div className={styles.TextPost}>Post a new coment</div>
         <textarea
-        onKeyDown={handleKeyPress}
+          onKeyDown={handleKeyPress}
           value={inputComment}
           onChange={handleCommentChange}
           className={`${styles.CommentTextarea} ${

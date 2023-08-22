@@ -12,16 +12,20 @@ const Index = ({ closeModal }) => {
   const [hasUploadedContent, setHasUploadedContent] = useState(false);
 
   const handleImageUploadProfile = (e) => {
+    console.log("Uploading profile image...");
     const file = e.target.files[0];
     if (file) {
+      console.log("Profile image selected:", file);
       setUploadedImageNameProfile(file.name);
       setHasUploadedProfile(true);
     }
   };
 
   const handleImageUploadContent = (e) => {
+    console.log("Uploading profile image...");
     const file = e.target.files[0];
     if (file) {
+      console.log("Content image selected:", file);
       setUploadedImageNameContent(file.name);
       setHasUploadedContent(true);
     }
@@ -29,17 +33,26 @@ const Index = ({ closeModal }) => {
 
   useEffect(() => {
     const form = document.getElementById("form-add");
-    const profileImg = document.getElementById("upload-img-profile");
-    console.log("Form element:", form);
-    console.log("Profile image element:", profileImg);
-
-    if (form && profileImg) {
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        uploadFiles(profileImg.files);
-      });
+  
+    const handleFormSubmit = async (e) => {
+      e.preventDefault();
+      const profileImg = document.getElementById("upload-img-profile");
+      const contentImg = document.getElementById("upload-img-content");
+      const allFiles = [...profileImg.files, ...contentImg.files];
+      uploadFiles(allFiles);
+    };
+  
+    if (form) {
+      form.addEventListener("submit", handleFormSubmit); //remove submit event
     }
-  }, []); // Empty dependency array means this effect runs once after initial render
+  
+    return () => {
+      if (form) {
+        form.removeEventListener("submit", handleFormSubmit);
+      }
+    };
+  }, []);
+   // Empty dependency array means this effect runs once after initial render
 
   const uploadFiles = async (files) => {
     if (files) {
@@ -49,8 +62,8 @@ const Index = ({ closeModal }) => {
       const FOLDER_NAME = "SOCIAL";
       const api = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
-      const formData = new FormData(); //key value
 
+      const formData = new FormData(); //key value
       formData.append("upload_preset", PRESET_NAME);
       formData.append("folder", FOLDER_NAME);
 
@@ -62,6 +75,7 @@ const Index = ({ closeModal }) => {
             "content-Type": "multipart/form-data",
           },
         });
+        console.log("Response from Cloudinary:", response);
         url.push(response.data.secure_url);
         console.log(url);
       }
@@ -86,10 +100,51 @@ const Index = ({ closeModal }) => {
     setDescription(value);
     setDescriptionError(value === "");
   };
-  const handleSaveClick = () => {
+
+  
+  const handleSaveClick = async () => {
     setNameError(name === "");
     setDescriptionError(description === "");
+  
+    if (!name || !description || !uploadedImageNameProfile || !uploadedImageNameContent) {
+      return; // Không thực hiện lưu nếu có ô input nào còn trống
+    }
+  
+    // Kiểm tra và đợi tải lên các tệp lên Cloudinary
+    const profileImg = document.getElementById("upload-img-profile");
+    const contentImg = document.getElementById("upload-img-content");
+    const allFiles = [...profileImg.files, ...contentImg.files];
+
+    try {
+      const uploadedUrls = await uploadFiles(allFiles);
+  
+      // Lưu Name và Description vào Local Storage
+      const dataToSave = {
+        name,
+        description,
+        profileImageUrl: uploadedUrls[0],
+        contentImageUrl: uploadedUrls[1],
+      };
+      localStorage.setItem("cardData", JSON.stringify(dataToSave));
+      resetForm();
+      console.log("Thông tin đã được lưu:", dataToSave);
+    } catch (error) {
+      console.error("Lỗi trong quá trình tải lên hình ảnh:", error);
+    }
+    
   };
+  
+  const resetForm = () => {
+    setUploadedImageNameProfile(null);
+    setHasUploadedProfile(false);
+    setUploadedImageNameContent(null);
+    setHasUploadedContent(false);
+    setName("");
+    setDescription("");
+    setNameError(false);
+    setDescriptionError(false);
+  };
+  
 
   return (
     <form
@@ -108,11 +163,11 @@ const Index = ({ closeModal }) => {
                   <li className={descriptionError ? styles.errorText : ""}>
                     Decription
                   </li>
-                  <li>Image</li>
+                  <li className={!hasUploadedContent ? styles.errorText : ""}>Image</li>
                 </div>
                 <div className={styles.CardInput}>
-
                   <div className={styles.ContentAvatar}>
+
                     <label
                       htmlFor='upload-img-profile'
                       className={`${styles.uploadLabel} ${!hasUploadedProfile ? styles.errorText : ""}`}
@@ -130,16 +185,16 @@ const Index = ({ closeModal }) => {
                           <img
                             src='Images/Upload-solid.svg'
                             alt='icon_arrow'
-                            className={styles.errorIcon}
                           />
                           <div className={styles.Decription}>Upload image</div>
                         </>
                       )}
                     </label>
+
                     <input
                       type='file'
                       id='upload-img-profile'
-                      multiple
+                      accept='image/*'
                       className={styles.hiddenInput}
                       onChange={handleImageUploadProfile}
                     />
@@ -171,9 +226,10 @@ const Index = ({ closeModal }) => {
                   <div
                     className={`${styles.ContentAvatar} ${styles.ContentImg}`}
                   >
+
                     <label
                       htmlFor='upload-img-content'
-                      className={styles.uploadLabel}
+                      className={`${styles.uploadLabel} ${!hasUploadedContent ? styles.errorText : ""}`}
                     >
                       {hasUploadedContent ? (
                         <>
@@ -193,10 +249,11 @@ const Index = ({ closeModal }) => {
                         </>
                       )}
                     </label>
+                    
                     <input
                       type='file'
                       id='upload-img-content'
-                      multiple
+                      accept='image/*'
                       className={styles.hiddenInput}
                       onChange={handleImageUploadContent}
                     />
