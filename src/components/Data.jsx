@@ -1,3 +1,8 @@
+export function getLocalData() {
+  const localData = localStorage.getItem("cardData");
+  return localData ? JSON.parse(localData) : [];
+}
+
 export function getData() {
   return [
     {

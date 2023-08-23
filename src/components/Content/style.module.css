@@ -49,6 +49,16 @@ a {
   font-size: 14px;
 }
 
+.Profile img{
+ max-width: 50px;
+ max-height: 50px;
+}
+
+.img img{
+  max-width: 310px;
+  max-height: 175px;
+}
+
 .EditIcon {
   margin-right: 17px;
 }

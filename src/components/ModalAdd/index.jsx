@@ -33,7 +33,7 @@ const Index = ({ closeModal }) => {
 
   useEffect(() => {
     const form = document.getElementById("form-add");
-  
+
     const handleFormSubmit = async (e) => {
       e.preventDefault();
       const profileImg = document.getElementById("upload-img-profile");
@@ -41,18 +41,18 @@ const Index = ({ closeModal }) => {
       const allFiles = [...profileImg.files, ...contentImg.files];
       uploadFiles(allFiles);
     };
-  
+
     if (form) {
       form.addEventListener("submit", handleFormSubmit); //remove submit event
     }
-  
+
     return () => {
       if (form) {
         form.removeEventListener("submit", handleFormSubmit);
       }
     };
   }, []);
-   // Empty dependency array means this effect runs once after initial render
+  // Empty dependency array means this effect runs once after initial render
 
   const uploadFiles = async (files) => {
     if (files) {
@@ -61,7 +61,6 @@ const Index = ({ closeModal }) => {
       const url = [];
       const FOLDER_NAME = "SOCIAL";
       const api = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-
 
       const formData = new FormData(); //key value
       formData.append("upload_preset", PRESET_NAME);
@@ -101,15 +100,25 @@ const Index = ({ closeModal }) => {
     setDescriptionError(value === "");
   };
 
-  
   const handleSaveClick = async () => {
     setNameError(name === "");
     setDescriptionError(description === "");
-  
-    if (!name || !description || !uploadedImageNameProfile || !uploadedImageNameContent) {
+
+    if (
+      !name ||
+      !description ||
+      !uploadedImageNameProfile ||
+      !uploadedImageNameContent
+    ) {
       return; // Không thực hiện lưu nếu có ô input nào còn trống
     }
-  
+
+    // Lấy dữ liệu từ local storage (nếu có)
+    const existingData = JSON.parse(localStorage.getItem("cardData")) || [];
+
+    // Kiểm tra nếu existingData không phải mảng, thì tạo một mảng rỗng
+    const dataArray = Array.isArray(existingData) ? existingData : [];
+
     // Kiểm tra và đợi tải lên các tệp lên Cloudinary
     const profileImg = document.getElementById("upload-img-profile");
     const contentImg = document.getElementById("upload-img-content");
@@ -117,23 +126,28 @@ const Index = ({ closeModal }) => {
 
     try {
       const uploadedUrls = await uploadFiles(allFiles);
-  
+
       // Lưu Name và Description vào Local Storage
-      const dataToSave = {
+      const newDataItem = {
         name,
         description,
-        profileImageUrl: uploadedUrls[0],
-        contentImageUrl: uploadedUrls[1],
+        Profile: uploadedUrls[0],
+        img: uploadedUrls[1],
       };
-      localStorage.setItem("cardData", JSON.stringify(dataToSave));
+
+      // Thêm mục mới vào danh sách dữ liệu cũ
+      const updatedData = [...dataArray, newDataItem];
+
+      // Lưu danh sách dữ liệu cập nhật vào local storage
+      localStorage.setItem("cardData", JSON.stringify(updatedData));
       resetForm();
-      console.log("Thông tin đã được lưu:", dataToSave);
+      console.log("Thông tin đã được lưu:", newDataItem);
+      closeModal();
     } catch (error) {
       console.error("Lỗi trong quá trình tải lên hình ảnh:", error);
     }
-    
   };
-  
+
   const resetForm = () => {
     setUploadedImageNameProfile(null);
     setHasUploadedProfile(false);
@@ -144,7 +158,6 @@ const Index = ({ closeModal }) => {
     setNameError(false);
     setDescriptionError(false);
   };
-  
 
   return (
     <form
@@ -158,19 +171,24 @@ const Index = ({ closeModal }) => {
               <div className={styles.ModalHeader}>Add new card</div>
               <div className={styles.ModalBody}>
                 <div className={styles.CardText}>
-                  <li className={!hasUploadedProfile ? styles.errorText : ""}>Avatar</li>
+                  <li className={!hasUploadedProfile ? styles.errorText : ""}>
+                    Avatar
+                  </li>
                   <li className={nameError ? styles.errorText : ""}>Name</li>
                   <li className={descriptionError ? styles.errorText : ""}>
                     Decription
                   </li>
-                  <li className={!hasUploadedContent ? styles.errorText : ""}>Image</li>
+                  <li className={!hasUploadedContent ? styles.errorText : ""}>
+                    Image
+                  </li>
                 </div>
                 <div className={styles.CardInput}>
                   <div className={styles.ContentAvatar}>
-
                     <label
                       htmlFor='upload-img-profile'
-                      className={`${styles.uploadLabel} ${!hasUploadedProfile ? styles.errorText : ""}`}
+                      className={`${styles.uploadLabel} ${
+                        !hasUploadedProfile ? styles.errorText : ""
+                      }`}
                     >
                       {hasUploadedProfile ? (
                         <>
@@ -226,10 +244,11 @@ const Index = ({ closeModal }) => {
                   <div
                     className={`${styles.ContentAvatar} ${styles.ContentImg}`}
                   >
-
                     <label
                       htmlFor='upload-img-content'
-                      className={`${styles.uploadLabel} ${!hasUploadedContent ? styles.errorText : ""}`}
+                      className={`${styles.uploadLabel} ${
+                        !hasUploadedContent ? styles.errorText : ""
+                      }`}
                     >
                       {hasUploadedContent ? (
                         <>
@@ -249,7 +268,7 @@ const Index = ({ closeModal }) => {
                         </>
                       )}
                     </label>
-                    
+
                     <input
                       type='file'
                       id='upload-img-content'

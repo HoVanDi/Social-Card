@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "./style.module.css";
 
-const index = ({ closeModal }) => {
+const index = ({ closeModal, deleteContent }) => {
+  // const handleDeleteClick = () => {
+  //   deleteContent(); // Gọi hàm xóa nội dung
+  //   closeModal(); // Đóng modal xóa
+  // };
   return (
     <div className={styles.DeleteCard}>
       <div className={styles.Modal}>
@@ -22,7 +26,12 @@ const index = ({ closeModal }) => {
           </div>
 
           <div className={styles.Btn}>
-            <div className={styles.SaveBtn}>Delete</div>
+            <div
+              className={styles.SaveBtn}
+              onClick={deleteContent}
+            >
+              Delete
+            </div>
             <div
               className={styles.CancelBtn}
               onClick={closeModal}
