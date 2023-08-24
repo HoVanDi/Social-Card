@@ -69,9 +69,15 @@ const Index = ({ setShowContainer }) => {
     }
   };
 
-  const [heartCount, setHeartCount] = useState(1);
-  const [messageCount, setMessageCount] = useState(2);
+  const [heartCount, setHeartCount] = useState(
+    parseInt(localStorage.getItem("heartCount")) || 0
+  );
+  const [messageCount, setMessageCount] = useState();
   const [isCommentPosted, setIsCommentPosted] = useState(false);
+
+  useEffect(() => {  //listen for the change of heartCount and save the value to local storage
+    localStorage.setItem("heartCount", heartCount);
+  }, [heartCount]);
 
   return (
     <div className={styles.Container}>
@@ -107,7 +113,7 @@ const Index = ({ setShowContainer }) => {
       <div className={styles.Icon}>
         <div
           className={styles.IconHeart}
-          onClick={() => setHeartCount(heartCount + 1)}
+          onClick={() => setHeartCount((prevCount) => prevCount + 1)}
         >
           <img
             src='Images/Heart-solid.svg'

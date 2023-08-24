@@ -50,6 +50,8 @@
 .MainContent .ContentAvatar {
   display: flex;
   margin-bottom: 20px;
+  max-width: 322px;
+  overflow: hidden;
 }
 
 .ContentAvatar label {
@@ -148,7 +150,11 @@
   border-color: #f3115e;
 }
 
-
+.fileNameInput {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
 /* CSS card Delete */
 .DeleteBody {
@@ -172,17 +178,6 @@
 .DecriptionDelete {
   margin-bottom: 20px;
 }
-
-/* const url = await uploadFiles(profileImg.files);
- console.log(profileImg.files);
-   addCard({
-     name: Name.value,
-     imgprofile: imgimgprofile.value,
-     imgcontent: imgimgprofile.url,
-   })
-  .then(()=>Router.navigate("/content"))
-  .catch((error)=>console.log(error))
- */
 
 @media (max-width: 768px) {
   .modalContent {

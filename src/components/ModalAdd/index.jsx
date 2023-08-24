@@ -2,14 +2,34 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./style.module.css";
 
-const Index = ({ closeModal }) => {
-  const [uploadedImageNameProfile, setUploadedImageNameProfile] =
-    useState(null);
-  const [hasUploadedProfile, setHasUploadedProfile] = useState(false);
+const Index = ({ closeModal, editedData }) => {
+  const [name, setName] = useState(editedData ? editedData.name : "");
+  const [description, setDescription] = useState(
+    editedData ? editedData.description : ""
+  );
+  const [uploadedImageNameProfile, setUploadedImageNameProfile] = useState(
+    editedData ? editedData.Profile : null
+  );
+  const [hasUploadedProfile, setHasUploadedProfile] = useState(
+    Boolean(editedData && editedData.Profile)
+  );
+  const [uploadedImageNameContent, setUploadedImageNameContent] = useState(
+    editedData ? editedData.img : null
+  );
+  const [hasUploadedContent, setHasUploadedContent] = useState(
+    Boolean(editedData && editedData.img)
+  );
 
-  const [uploadedImageNameContent, setUploadedImageNameContent] =
-    useState(null);
-  const [hasUploadedContent, setHasUploadedContent] = useState(false);
+  useEffect(() => {
+    if (editedData) {
+      setName(editedData.name);
+      setDescription(editedData.description);
+      setUploadedImageNameProfile(editedData.Profile);
+      setHasUploadedProfile(Boolean(editedData.Profile));
+      setUploadedImageNameContent(editedData.img);
+      setHasUploadedContent(Boolean(editedData.img));
+    }
+  }, [editedData]);
 
   const handleImageUploadProfile = (e) => {
     console.log("Uploading profile image...");
@@ -33,7 +53,6 @@ const Index = ({ closeModal }) => {
 
   useEffect(() => {
     const form = document.getElementById("form-add");
-
     const handleFormSubmit = async (e) => {
       e.preventDefault();
       const profileImg = document.getElementById("upload-img-profile");
@@ -45,7 +64,6 @@ const Index = ({ closeModal }) => {
     if (form) {
       form.addEventListener("submit", handleFormSubmit); //remove submit event
     }
-
     return () => {
       if (form) {
         form.removeEventListener("submit", handleFormSubmit);
@@ -82,9 +100,6 @@ const Index = ({ closeModal }) => {
     }
   };
 
-  //  Validate
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [nameError, setNameError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
 
@@ -110,16 +125,16 @@ const Index = ({ closeModal }) => {
       !uploadedImageNameProfile ||
       !uploadedImageNameContent
     ) {
-      return; // Không thực hiện lưu nếu có ô input nào còn trống
+      return;
     }
 
-    // Lấy dữ liệu từ local storage (nếu có)
+    // Get data from local storage (if available)
     const existingData = JSON.parse(localStorage.getItem("cardData")) || [];
 
-    // Kiểm tra nếu existingData không phải mảng, thì tạo một mảng rỗng
+    // Check if existingData is not array, create an empty array
     const dataArray = Array.isArray(existingData) ? existingData : [];
 
-    // Kiểm tra và đợi tải lên các tệp lên Cloudinary
+    // Check and wait to upload files to Cloudinary
     const profileImg = document.getElementById("upload-img-profile");
     const contentImg = document.getElementById("upload-img-content");
     const allFiles = [...profileImg.files, ...contentImg.files];
@@ -127,7 +142,7 @@ const Index = ({ closeModal }) => {
     try {
       const uploadedUrls = await uploadFiles(allFiles);
 
-      // Lưu Name và Description vào Local Storage
+      // Save Name and Description to Local Storage
       const newDataItem = {
         name,
         description,
@@ -135,10 +150,10 @@ const Index = ({ closeModal }) => {
         img: uploadedUrls[1],
       };
 
-      // Thêm mục mới vào danh sách dữ liệu cũ
+      // Add new item to old data list
       const updatedData = [...dataArray, newDataItem];
-
-      // Lưu danh sách dữ liệu cập nhật vào local storage
+      updatedData[editedData] = newDataItem; // Replace editedIndex with the index of edited data
+      // Save updated data list to local storage
       localStorage.setItem("cardData", JSON.stringify(updatedData));
       resetForm();
       console.log("Thông tin đã được lưu:", newDataItem);
@@ -213,7 +228,7 @@ const Index = ({ closeModal }) => {
                       type='file'
                       id='upload-img-profile'
                       accept='image/*'
-                      className={styles.hiddenInput}
+                      className={`${styles.hiddenInput} ${styles.fileNameInput}`}
                       onChange={handleImageUploadProfile}
                     />
                   </div>

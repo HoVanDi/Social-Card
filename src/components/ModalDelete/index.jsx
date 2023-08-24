@@ -2,10 +2,6 @@ import React from "react";
 import styles from "./style.module.css";
 
 const index = ({ closeModal, deleteContent }) => {
-  // const handleDeleteClick = () => {
-  //   deleteContent(); // Gọi hàm xóa nội dung
-  //   closeModal(); // Đóng modal xóa
-  // };
   return (
     <div className={styles.DeleteCard}>
       <div className={styles.Modal}>

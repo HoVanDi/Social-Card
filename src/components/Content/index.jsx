@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./style.module.css";
 import { getData, getLocalData } from "../Data";
 import Modal from "react-modal";
@@ -30,6 +30,8 @@ const Index = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = React.useState(false); // Add state for delete modal
 
+  const [editedData, setEditedData] = useState(null);
+
   function openModal() {
     setIsOpen(true);
   }
@@ -48,17 +50,16 @@ const Index = () => {
 
   const [deleteIndex, setDeleteIndex] = React.useState(null);
   const handleDeleteContent = async (index) => {
-    // Tạo bản sao của mảng dataLocal để không ảnh hưởng trực tiếp đến state
+    // Make a copy of the dataLocal array so that it doesn't affect the state directly
     const newDataLocal = [...dataLocal];
-    newDataLocal.splice(index, 1); // Xóa nội dung tại chỉ mục index
+    newDataLocal.splice(index, 1);
 
-    // Cập nhật Local Storage với mảng newDataLocal
+    // Update Local Storage with array newDataLocal
     localStorage.setItem("cardData", JSON.stringify(newDataLocal));
 
-    // Cập nhật state dataLocal để gây hiển thị lại trang
+    // Update dataLocal state to cause page re-rendering
     setDeleteIndex(newDataLocal);
 
-    // Đóng modal sau khi thực hiện xóa
     closeDeleteModal();
   };
 
@@ -70,7 +71,10 @@ const Index = () => {
         style={customStyles}
         contentLabel='Example Modal'
       >
-        <ModalAdd closeModal={closeModal}></ModalAdd>
+        <ModalAdd
+          closeModal={closeModal}
+          editedData={editedData}
+        ></ModalAdd>
       </Modal>
 
       <Modal
@@ -85,7 +89,7 @@ const Index = () => {
         ></ModalDelete>
       </Modal>
 
-      {data.map((item, index) => (
+      {/* {data.map((item, index) => (
         <div className={styles.Content}>
           <div
             key={index}
@@ -136,7 +140,7 @@ const Index = () => {
             </div>
           </a>
         </div>
-      ))}
+      ))} */}
 
       {dataLocal.map((item, index) => (
         <div
@@ -161,7 +165,10 @@ const Index = () => {
             <div className={styles.Icon}>
               <div className={styles.EditIcon}>
                 <img
-                  onClick={openModal}
+                  onClick={() => {
+                    setEditedData(item);
+                    openModal();
+                  }}
                   src='Images/Edit-icon.svg'
                   alt='Edit'
                 />
