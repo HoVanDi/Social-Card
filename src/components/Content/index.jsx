@@ -23,15 +23,16 @@ const customStyles = {
 
 const Index = () => {
   const data = getData();
-  const dataLocal = getLocalData();
+  // const dataLocal = getLocalData();
+  const [dataLocal, setDataLocal] = useState([...getLocalData()]);
   console.log(dataLocal);
   // Convert localData object to an array
 
+  const [editedDataIndex, setEditedDataIndex] = useState(null); // Khai báo biến và hàm set tại đây
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = React.useState(false); // Add state for delete modal
 
   const [editedData, setEditedData] = useState(null);
-
   function openModal() {
     setIsOpen(true);
   }
@@ -58,9 +59,35 @@ const Index = () => {
     localStorage.setItem("cardData", JSON.stringify(newDataLocal));
 
     // Update dataLocal state to cause page re-rendering
-    setDeleteIndex(newDataLocal);
+    // setDeleteIndex(newDataLocal);
+    // Update dataLocal state to cause page re-rendering
+    setDeleteIndex(null);
+    setEditedDataIndex(null); // Reset the editedDataIndex
+    setEditedData(null); // Reset the editedData
+    setDataLocal(newDataLocal); // Update dataLocal with the updated array
 
     closeDeleteModal();
+  };
+
+  const handleEditClick = (index) => {
+    setEditedDataIndex(index); // Set the index of the item being edited
+    setEditedData(dataLocal[index]); // Set the data of the item being edited
+    openModal();
+  };
+
+  const handleSaveEdit = () => {
+    // Create a copy of dataLocal and update the edited item
+    const newDataLocal = [...dataLocal];
+    newDataLocal[editedDataIndex] = {
+      ...editedData, // Copy the existing data
+      name: editedData.name, // Update name
+      description: editedData.description, // Update description
+      // ... Update other fields if needed
+    };
+    setDataLocal(newDataLocal); // Update dataLocal
+    setEditedData(null);
+    setEditedDataIndex(null);
+    closeModal();
   };
 
   return (
@@ -74,6 +101,7 @@ const Index = () => {
         <ModalAdd
           closeModal={closeModal}
           editedData={editedData}
+          setDataLocal={setDataLocal}
         ></ModalAdd>
       </Modal>
 
@@ -165,10 +193,7 @@ const Index = () => {
             <div className={styles.Icon}>
               <div className={styles.EditIcon}>
                 <img
-                  onClick={() => {
-                    setEditedData(item);
-                    openModal();
-                  }}
+                  onClick={() => handleEditClick(index)}
                   src='Images/Edit-icon.svg'
                   alt='Edit'
                 />

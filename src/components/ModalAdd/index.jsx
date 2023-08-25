@@ -2,7 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./style.module.css";
 
-const Index = ({ closeModal, editedData }) => {
+const Index = ({ closeModal, editedData, setDataLocal }) => {
+  const [editedDataIndex, setEditedDataIndex] = useState(null); // Initialize editedDataIndex
+  const [isEditing, setIsEditing] = useState(Boolean(editedData));
+
   const [name, setName] = useState(editedData ? editedData.name : "");
   const [description, setDescription] = useState(
     editedData ? editedData.description : ""
@@ -106,12 +109,14 @@ const Index = ({ closeModal, editedData }) => {
   const handleNameChange = (event) => {
     const value = event.target.value;
     setName(value);
+    setEditedDataIndex((prevData) => ({ ...prevData, name: value }));
     setNameError(value === "");
   };
 
   const handleDescriptionChange = (event) => {
     const value = event.target.value;
     setDescription(value);
+    setEditedDataIndex((prevData) => ({ ...prevData, description: value }));
     setDescriptionError(value === "");
   };
 
@@ -130,9 +135,8 @@ const Index = ({ closeModal, editedData }) => {
 
     // Get data from local storage (if available)
     const existingData = JSON.parse(localStorage.getItem("cardData")) || [];
-
     // Check if existingData is not array, create an empty array
-    const dataArray = Array.isArray(existingData) ? existingData : [];
+    const dataLocal = Array.isArray(existingData) ? existingData : [];
 
     // Check and wait to upload files to Cloudinary
     const profileImg = document.getElementById("upload-img-profile");
@@ -150,11 +154,22 @@ const Index = ({ closeModal, editedData }) => {
         img: uploadedUrls[1],
       };
 
-      // Add new item to old data list
-      const updatedData = [...dataArray, newDataItem];
-      updatedData[editedData] = newDataItem; // Replace editedIndex with the index of edited data
-      // Save updated data list to local storage
-      localStorage.setItem("cardData", JSON.stringify(updatedData));
+      // Determine whether to edit existing data or add new data
+      if (isEditing) {
+        // Update existing data
+        const updatedDataArray = [...dataLocal];
+        updatedDataArray[editedDataIndex] = newDataItem; // Replace editedDataIndex with the index of edited data
+        localStorage.setItem("cardData", JSON.stringify(updatedDataArray));
+
+        console.log("Data before update:", dataLocal); // Log dữ liệu trước khi cập nhật
+        console.log("Updated Data Array:", updatedDataArray); // Log dữ liệu sau khi cập nhật
+      } else {
+        // Add new data
+        const updatedData = [...dataLocal, newDataItem];
+        setDataLocal(updatedData);
+        localStorage.setItem("cardData", JSON.stringify(updatedData));
+      }
+
       resetForm();
       console.log("Thông tin đã được lưu:", newDataItem);
       closeModal();
