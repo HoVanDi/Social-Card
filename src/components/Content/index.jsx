@@ -22,37 +22,46 @@ const customStyles = {
   },
 };
 
+
 const Index = ({ searchTerm }) => {
   const data = getData();
   const dataLocal = getLocalData();
   console.log(dataLocal);
   // Convert localData object to an array
 
+
   //Search
   const filteredData = dataLocal.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = React.useState(false); // Add state for delete modal
 
+
   const [editedData, setEditedData] = useState(null);
+
 
   function openModal() {
     setIsOpen(true);
   }
 
+
   function closeModal() {
     setIsOpen(false);
   }
+
 
   function openDeleteModal() {
     setModalDeleteIsOpen(true);
   }
 
+
   function closeDeleteModal() {
     setModalDeleteIsOpen(false);
   }
+
 
   const [deleteIndex, setDeleteIndex] = React.useState(null);
   const handleDeleteContent = async (index) => {
@@ -60,14 +69,18 @@ const Index = ({ searchTerm }) => {
     const newDataLocal = [...dataLocal];
     newDataLocal.splice(index, 1);
 
+
     // Update Local Storage with array newDataLocal
     localStorage.setItem("cardData", JSON.stringify(newDataLocal));
+
 
     // Update dataLocal state to cause page re-rendering
     setDeleteIndex(newDataLocal);
 
+
     closeDeleteModal();
   };
+
 
   return (
     <div className={styles.Body}>
@@ -82,6 +95,7 @@ const Index = ({ searchTerm }) => {
           editedData={editedData}
         ></ModalUpdate>
       </Modal>
+
 
       <Modal
         isOpen={modalDeleteIsOpen}
@@ -163,5 +177,6 @@ const Index = ({ searchTerm }) => {
     </div>
   );
 };
+
 
 export default Index;
