@@ -9,6 +9,7 @@
 }
 
 .Content {
+  width: 310px;
   cursor: pointer;
   text-decoration: none;
 }
@@ -55,7 +56,6 @@ a {
 }
 
 .img img{
-  max-width: 310px;
   max-height: 175px;
 }
 
@@ -69,16 +69,12 @@ a {
 }
 
 .Description {
-  max-width: 310px;
   color: #000;
   font-size: 15px;
   font-weight: 400;
   margin-bottom: 15px;
 }
 
-.DescriptionMio {
-  font-size: 14px;
-}
 
 .Content {
   margin-bottom: 52px;

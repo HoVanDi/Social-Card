@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import styles from "./style.module.css";
 import { getData, getLocalData } from "../Data";
 import Modal from "react-modal";
-import ModalAdd from "../ModalAdd";
+import ModalUpdate from "../ModalUpdate";
 import ModalDelete from "../ModalDelete";
+// import Navbar from "../Navbar"
 import { format } from "date-fns";
-// import { Link } from "react-router-dom";
+import NotFound from "../NotFound";
 const customStyles = {
   content: {
     top: "50%",
@@ -21,11 +22,16 @@ const customStyles = {
   },
 };
 
-const Index = () => {
+const Index = ({ searchTerm }) => {
   const data = getData();
   const dataLocal = getLocalData();
   console.log(dataLocal);
   // Convert localData object to an array
+
+  //Search
+  const filteredData = dataLocal.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = React.useState(false); // Add state for delete modal
@@ -71,10 +77,10 @@ const Index = () => {
         style={customStyles}
         contentLabel='Example Modal'
       >
-        <ModalAdd
+        <ModalUpdate
           closeModal={closeModal}
           editedData={editedData}
-        ></ModalAdd>
+        ></ModalUpdate>
       </Modal>
 
       <Modal
@@ -88,61 +94,11 @@ const Index = () => {
           deleteContent={() => handleDeleteContent(deleteIndex)}
         ></ModalDelete>
       </Modal>
-
-      {/* {data.map((item, index) => (
-        <div className={styles.Content}>
-          <div
-            key={index}
-            className={styles.Header}
-          >
-            <a href='./CardDetail'>
-              <div className={styles.Profile}>
-                <img
-                  src={item.Profile}
-                  alt={item.Name}
-                />
-                <div>
-                  <div className={styles.Name}>{item.Name}</div>
-                  <div className={styles.Birthday}>{item.Birthday}</div>
-                </div>
-              </div>
-            </a>
-            <div className={styles.Icon}>
-              <div className={styles.EditIcon}>
-                <img
-                  onClick={openModal}
-                  src='Images/Edit-icon.svg'
-                  alt='Edit'
-                />
-              </div>
-              <div className={styles.DeleteIcon}>
-                <img
-                  onClick={openDeleteModal}
-                  src='Images/Delete-icon.svg'
-                  alt='Delete'
-                />
-              </div>
-            </div>
-          </div>
-          <a href='./CardDetail'>
-            <div
-              className={`${styles.Description} ${
-                index === 2 ? styles.DescriptionMio : ""
-              }`}
-            >
-              {item.Description}
-            </div>
-            <div className={styles.img}>
-              <img
-                src={item.img}
-                alt='Image'
-              />
-            </div>
-          </a>
-        </div>
-      ))} */}
-
-      {dataLocal.map((item, index) => (
+          <div className={styles.Body}>
+      {filteredData.length === 0 && searchTerm !== "" ? (
+        <NotFound /> // Show NotFound component if no results are found
+      ) :
+      (filteredData.map((item, index) => (
         <div
           className={styles.Content}
           key={index}
@@ -201,7 +157,9 @@ const Index = () => {
             </div>
           </a>
         </div>
-      ))}
+      ))
+      )}
+    </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./style.module.css";
 
 const Index = ({ closeModal, editedData }) => {
+  const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(editedData ? editedData.name : "");
   const [description, setDescription] = useState(
     editedData ? editedData.description : ""
@@ -21,7 +22,7 @@ const Index = ({ closeModal, editedData }) => {
   );
 
   useEffect(() => {
-    if (editedData) {
+    if (editedData || isEditing) {
       setName(editedData.name);
       setDescription(editedData.description);
       setUploadedImageNameProfile(editedData.Profile);
@@ -29,7 +30,7 @@ const Index = ({ closeModal, editedData }) => {
       setUploadedImageNameContent(editedData.img);
       setHasUploadedContent(Boolean(editedData.img));
     }
-  }, [editedData]);
+  }, [editedData, isEditing]);
 
   const handleImageUploadProfile = (e) => {
     console.log("Uploading profile image...");
@@ -119,12 +120,7 @@ const Index = ({ closeModal, editedData }) => {
     setNameError(name === "");
     setDescriptionError(description === "");
 
-    if (
-      !name ||
-      !description ||
-      !uploadedImageNameProfile ||
-      !uploadedImageNameContent
-    ) {
+    if (!name || !description) {
       return;
     }
 
@@ -142,6 +138,22 @@ const Index = ({ closeModal, editedData }) => {
     try {
       const uploadedUrls = await uploadFiles(allFiles);
 
+      //  let uploadedUrls = [];
+
+      // Check if new profile image is uploaded
+      if (hasUploadedProfile) {
+        uploadedUrls.push(uploadedImageNameProfile);
+      } else {
+        uploadedUrls.push(editedData.Profile); // Use the old profile image URL
+      }
+
+      // Check if new content image is uploaded
+      if (hasUploadedContent) {
+        uploadedUrls.push(uploadedImageNameContent);
+      } else {
+        uploadedUrls.push(editedData.img); // Use the old content image URL
+      }
+
       // Save Name and Description to Local Storage
       const newDataItem = {
         name,
@@ -150,10 +162,18 @@ const Index = ({ closeModal, editedData }) => {
         img: uploadedUrls[1],
       };
 
-      // Add new item to old data list
-      const updatedData = [...dataArray, newDataItem];
-      updatedData[editedData] = newDataItem; // Replace editedIndex with the index of edited data
-      // Save updated data list to local storage
+      const updatedData = [...dataArray];
+
+      if (editedData !== null) {
+        const editedIndex = updatedData.findIndex(
+          (item) => item.name === editedData.name
+        );
+        if (editedIndex !== -1) {
+          updatedData[editedIndex] = newDataItem;
+        }
+      } else {
+        updatedData.push(newDataItem);
+      }
 
       localStorage.setItem("cardData", JSON.stringify(updatedData));
       resetForm();
@@ -184,7 +204,7 @@ const Index = ({ closeModal, editedData }) => {
         <div className={styles.Modal}>
           <div className={styles.modalContent}>
             <div className={styles.MainContent}>
-              <div className={styles.ModalHeader}>Add new card</div>
+              <div className={styles.ModalHeader}>Update card</div>
               <div className={styles.ModalBody}>
                 <div className={styles.CardText}>
                   <li className={!hasUploadedProfile ? styles.errorText : ""}>

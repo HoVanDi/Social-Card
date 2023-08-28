@@ -1,0 +1,249 @@
+.Modal {
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .modalContent {
+    width: 514px;
+    margin: 0 auto;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #d2cbcb;
+    border-radius: 10px;
+  }
+  
+  .MainContent {
+    margin: 25px 43px 25px 45px;
+  }
+  
+  .ModalHeader {
+    text-align: center;
+    font: normal normal bold 20px/27px Segoe UI;
+    letter-spacing: 0px;
+    color: #000000;
+    margin-bottom: 40px;
+  }
+  
+  .CardText li {
+    list-style: none;
+    margin-bottom: 27px;
+    font: normal normal normal 16px/21px Segoe UI;
+  }
+  
+  .CardText li:nth-child(-n + 3)::after {
+    content: "*";
+    color: #f3115e;
+  }
+  
+  .CardText li:nth-child(2) {
+    margin-bottom: 34px;
+  }
+  
+  .ModalBody {
+    max-height: 197px;
+    justify-content: space-between;
+    display: flex;
+    border-bottom: 1px solid #d9d9d9;
+  }
+  
+  .MainContent .ContentAvatar {
+    display: flex;
+    margin-bottom: 20px;
+    max-width: 322px;
+    overflow: hidden;
+  }
+  
+  .ContentAvatar label {
+    display: flex;
+  }
+  
+  .CardInput input {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 322px;
+    padding: 5px 6px;
+    outline: none;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .CardInput textarea {
+    overflow: hidden;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 322px;
+    outline: none;
+    font-size: 18px;
+    max-height: 34px;
+    padding: 5px 6px;
+    margin-bottom: 16px;
+  }
+  
+  .ContentAvatar img {
+    margin-right: 11px;
+  }
+  
+  .ContentAvatar img:hover {
+    cursor: pointer;
+  }
+  
+  .Btn {
+    display: flex;
+    color: #ffffff;
+    justify-content: end;
+    margin-right: 43px;
+    margin-bottom: 19px;
+  }
+  
+  .SaveBtn button {
+    background: #064ebc 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    padding: 13px 24px;
+    font: normal normal bold 13px/17px Segoe UI;
+    margin-right: 20px;
+    border-width: 0px;
+    color: #ffffff;
+  }
+  
+  .SaveBtn button:hover {
+    cursor: pointer;
+  }
+  
+  .CancelBtn {
+    background: #d9d9d9 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    padding: 13px 18px;
+    font: normal normal bold 13px/17px Segoe UI;
+  }
+  
+  .SaveBtn,
+  .CancelBtn {
+    cursor: pointer;
+  }
+  
+  .hiddenInput {
+    display: none;
+  }
+  
+  .uploadLabel {
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .errorText {
+    color: #f3115e;
+    filter: brightness(0) saturate(100%) invert(59%) sepia(96%) saturate(6764%)
+      hue-rotate(338deg) brightness(99%) contrast(98%);
+  }
+  
+  .errorInput input,
+  .errorInput textarea {
+    border-color: #f3115e;
+  }
+  
+  .fileNameInput {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  /* CSS card Delete */
+  .DeleteBody {
+    display: block;
+    text-align: center;
+    font: normal normal normal 16px/21px Segoe UI;
+    color: #000000;
+    margin-bottom: 20px;
+  }
+  
+  .DeleteBody img {
+    padding-bottom: 16px;
+    display: flex;
+    margin: 0 auto;
+  }
+  
+  .DeleteBody img:hover {
+    cursor: pointer;
+  }
+  
+  .DecriptionDelete {
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .modalContent {
+      width: auto;
+    }
+  
+    .ModalHeader {
+      margin-bottom: 25px;
+    }
+  
+    .CardText li {
+      font: normal normal normal 17px/21px Segoe UI;
+      margin-bottom: 42px;
+    }
+  
+    .ModalBody {
+      max-height: 100%;
+      position: relative;
+    }
+  
+    .ContentAvatar {
+      position: absolute;
+      top: 27px;
+      left: 0px;
+    }
+  
+    .ContentImg {
+      position: absolute;
+      top: 235px;
+      left: 0px;
+    }
+  
+    .CardInput input {
+      position: absolute;
+      top: 83px;
+      left: 0;
+      min-width: 0;
+      font-size: 20px;
+      padding: 8px 6px;
+    }
+  
+    .CardInput textarea {
+      position: absolute;
+      top: 161px;
+      left: 0;
+      font-size: 20px;
+      min-width: 0;
+      padding: 9px 6px;
+      max-height: 46px;
+    }
+  
+    .CardText li:nth-child(3) {
+      margin-bottom: 56px;
+    }
+  
+    .CardText li:nth-child(2) {
+      margin-bottom: 50px;
+    }
+  
+    .Btn {
+      margin-right: 90px;
+      margin-left: 90px;
+    }
+  
+    .MainContent {
+      margin: 25px 33px 25px;
+    }
+  }
+  
