@@ -22,7 +22,7 @@ const Index = ({ onSearchChange }) => {
 
   const handleSearchChange = (event) => {
     const searchTerm = event.target.value;
-    onSearchChange(searchTerm);  // Gửi dữ liệu tìm kiếm lên cho component cha
+    onSearchChange(searchTerm);  // Submit search data to the parent component
   };
 
   function openModal() {

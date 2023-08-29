@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./style.module.css";
 
 const Index = ({ closeModal, editedData }) => {
-  const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(editedData ? editedData.name : "");
   const [description, setDescription] = useState(
     editedData ? editedData.description : ""
@@ -22,7 +21,7 @@ const Index = ({ closeModal, editedData }) => {
   );
 
   useEffect(() => {
-    if (editedData || isEditing) {
+    if (editedData ) {
       setName(editedData.name);
       setDescription(editedData.description);
       setUploadedImageNameProfile(editedData.Profile);
@@ -30,7 +29,7 @@ const Index = ({ closeModal, editedData }) => {
       setUploadedImageNameContent(editedData.img);
       setHasUploadedContent(Boolean(editedData.img));
     }
-  }, [editedData, isEditing]);
+  }, [editedData]);
 
   const handleImageUploadProfile = (e) => {
     console.log("Uploading profile image...");
@@ -43,7 +42,7 @@ const Index = ({ closeModal, editedData }) => {
   };
 
   const handleImageUploadContent = (e) => {
-    console.log("Uploading profile image...");
+    console.log("Uploading content image...");
     const file = e.target.files[0];
     if (file) {
       console.log("Content image selected:", file);
@@ -123,47 +122,44 @@ const Index = ({ closeModal, editedData }) => {
     if (!name || !description) {
       return;
     }
-
     // Get data from local storage (if available)
     const existingData = JSON.parse(localStorage.getItem("cardData")) || [];
-
     // Check if existingData is not array, create an empty array
     const dataArray = Array.isArray(existingData) ? existingData : [];
-
     // Check and wait to upload files to Cloudinary
     const profileImg = document.getElementById("upload-img-profile");
     const contentImg = document.getElementById("upload-img-content");
     const allFiles = [...profileImg.files, ...contentImg.files];
-
     try {
       const uploadedUrls = await uploadFiles(allFiles);
-
-      //  let uploadedUrls = [];
-
       // Check if new profile image is uploaded
+
+      const newProfileImageUrl = hasUploadedProfile
+        ? uploadedUrls[0]
+        : editedData.Profile;
+      const newContentImageUrl = hasUploadedContent
+        ? uploadedUrls[1]
+        : editedData.img;
+
       if (hasUploadedProfile) {
         uploadedUrls.push(uploadedImageNameProfile);
       } else {
         uploadedUrls.push(editedData.Profile); // Use the old profile image URL
       }
-
       // Check if new content image is uploaded
       if (hasUploadedContent) {
         uploadedUrls.push(uploadedImageNameContent);
       } else {
         uploadedUrls.push(editedData.img); // Use the old content image URL
       }
-
       // Save Name and Description to Local Storage
       const newDataItem = {
         name,
         description,
-        Profile: uploadedUrls[0],
-        img: uploadedUrls[1],
-      };
-
+        Profile: newProfileImageUrl ? uploadedUrls[0] : editedData.Profile,
+        img: newContentImageUrl ? uploadedUrls[1] : editedData.img,
+      }
       const updatedData = [...dataArray];
-
       if (editedData !== null) {
         const editedIndex = updatedData.findIndex(
           (item) => item.name === editedData.name
@@ -174,7 +170,6 @@ const Index = ({ closeModal, editedData }) => {
       } else {
         updatedData.push(newDataItem);
       }
-
       localStorage.setItem("cardData", JSON.stringify(updatedData));
       resetForm();
       console.log("Thông tin đã được lưu:", newDataItem);

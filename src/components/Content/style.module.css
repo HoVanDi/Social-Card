@@ -57,6 +57,7 @@ a {
 
 .img img{
   max-height: 175px;
+  max-width: 310px;
 }
 
 .EditIcon {

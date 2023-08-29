@@ -2,37 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./style.module.css";
 
-
-const Index = ({ closeModal, editedData }) => {
-  const [name, setName] = useState(editedData ? editedData.name : "");
-  const [description, setDescription] = useState(
-    editedData ? editedData.description : ""
-  );
-  const [uploadedImageNameProfile, setUploadedImageNameProfile] = useState(
-    editedData ? editedData.Profile : null
-  );
-  const [hasUploadedProfile, setHasUploadedProfile] = useState(
-    Boolean(editedData && editedData.Profile)
-  );
-  const [uploadedImageNameContent, setUploadedImageNameContent] = useState(
-    editedData ? editedData.img : null
-  );
-  const [hasUploadedContent, setHasUploadedContent] = useState(
-    Boolean(editedData && editedData.img)
-  );
-
-
-  useEffect(() => {
-    if (editedData) {
-      setName(editedData.name);
-      setDescription(editedData.description);
-      setUploadedImageNameProfile(editedData.Profile);
-      setHasUploadedProfile(Boolean(editedData.Profile));
-      setUploadedImageNameContent(editedData.img);
-      setHasUploadedContent(Boolean(editedData.img));
-    }
-  }, [editedData]);
-
+const Index = ({ closeModal }) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [uploadedImageNameProfile, setUploadedImageNameProfile] = useState(null);
+  const [hasUploadedProfile, setHasUploadedProfile] = useState(false);
+  const [uploadedImageNameContent, setUploadedImageNameContent] = useState(null);
+  const [hasUploadedContent, setHasUploadedContent] = useState(false);
 
   const handleImageUploadProfile = (e) => {
     console.log("Uploading profile image...");
@@ -44,7 +20,6 @@ const Index = ({ closeModal, editedData }) => {
     }
   };
 
-
   const handleImageUploadContent = (e) => {
     console.log("Uploading profile image...");
     const file = e.target.files[0];
@@ -55,7 +30,6 @@ const Index = ({ closeModal, editedData }) => {
     }
   };
 
-
   useEffect(() => {
     const form = document.getElementById("form-add");
     const handleFormSubmit = async (e) => {
@@ -65,7 +39,6 @@ const Index = ({ closeModal, editedData }) => {
       const allFiles = [...profileImg.files, ...contentImg.files];
       uploadFiles(allFiles);
     };
-
 
     if (form) {
       form.addEventListener("submit", handleFormSubmit); //remove submit event
@@ -78,7 +51,6 @@ const Index = ({ closeModal, editedData }) => {
   }, []);
   // Empty dependency array means this effect runs once after initial render
 
-
   const uploadFiles = async (files) => {
     if (files) {
       const CLOUD_NAME = "dsp0tuvsv";
@@ -87,15 +59,12 @@ const Index = ({ closeModal, editedData }) => {
       const FOLDER_NAME = "SOCIAL";
       const api = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
-
       const formData = new FormData(); //key value
       formData.append("upload_preset", PRESET_NAME);
       formData.append("folder", FOLDER_NAME);
 
-
       for (const file of files) {
         formData.append("file", file);
-
 
         const response = await axios.post(api, formData, {
           headers: {
@@ -110,10 +79,8 @@ const Index = ({ closeModal, editedData }) => {
     }
   };
 
-
   const [nameError, setNameError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
-
 
   const handleNameChange = (event) => {
     const value = event.target.value;
@@ -121,18 +88,15 @@ const Index = ({ closeModal, editedData }) => {
     setNameError(value === "");
   };
 
-
   const handleDescriptionChange = (event) => {
     const value = event.target.value;
     setDescription(value);
     setDescriptionError(value === "");
   };
 
-
   const handleSaveClick = async () => {
     setNameError(name === "");
     setDescriptionError(description === "");
-
 
     if (
       !name ||
@@ -143,24 +107,19 @@ const Index = ({ closeModal, editedData }) => {
       return;
     }
 
-
     // Get data from local storage (if available)
     const existingData = JSON.parse(localStorage.getItem("cardData")) || [];
 
-
     // Check if existingData is not array, create an empty array
     const dataArray = Array.isArray(existingData) ? existingData : [];
-
 
     // Check and wait to upload files to Cloudinary
     const profileImg = document.getElementById("upload-img-profile");
     const contentImg = document.getElementById("upload-img-content");
     const allFiles = [...profileImg.files, ...contentImg.files];
 
-
     try {
       const uploadedUrls = await uploadFiles(allFiles);
-
 
       // Save Name and Description to Local Storage
       const newDataItem = {
@@ -170,22 +129,18 @@ const Index = ({ closeModal, editedData }) => {
         img: uploadedUrls[1],
       };
 
-
       // Add new item to old data list
       const updatedData = [...dataArray, newDataItem];
-      updatedData[editedData] = newDataItem; // Replace editedIndex with the index of edited data
-      // Save updated data list to local storage
-
 
       localStorage.setItem("cardData", JSON.stringify(updatedData));
       resetForm();
       console.log("Thông tin đã được lưu:", newDataItem);
       closeModal();
+      window.location.reload()
     } catch (error) {
       console.error("Lỗi trong quá trình tải lên hình ảnh:", error);
     }
   };
-
 
   const resetForm = () => {
     setUploadedImageNameProfile(null);
@@ -197,7 +152,6 @@ const Index = ({ closeModal, editedData }) => {
     setNameError(false);
     setDescriptionError(false);
   };
-
 
   return (
     <form
@@ -249,7 +203,6 @@ const Index = ({ closeModal, editedData }) => {
                       )}
                     </label>
 
-
                     <input
                       type='file'
                       id='upload-img-profile'
@@ -258,7 +211,6 @@ const Index = ({ closeModal, editedData }) => {
                       onChange={handleImageUploadProfile}
                     />
                   </div>
-
 
                   <div
                     className={`${styles.CardInput} ${
@@ -272,7 +224,6 @@ const Index = ({ closeModal, editedData }) => {
                     />
                   </div>
 
-
                   <div
                     className={`${styles.CardInput} ${
                       descriptionError ? styles.errorInput : ""
@@ -283,7 +234,6 @@ const Index = ({ closeModal, editedData }) => {
                       onChange={handleDescriptionChange}
                     ></textarea>
                   </div>
-
 
                   <div
                     className={`${styles.ContentAvatar} ${styles.ContentImg}`}
@@ -313,7 +263,6 @@ const Index = ({ closeModal, editedData }) => {
                       )}
                     </label>
 
-
                     <input
                       type='file'
                       id='upload-img-content'
@@ -323,14 +272,12 @@ const Index = ({ closeModal, editedData }) => {
                     />
                   </div>
 
-
                   <div
                     className={`${styles.ContentAvatar} ${styles.ContentImg}`}
                   ></div>
                 </div>
               </div>
             </div>
-
 
             <div className={styles.Btn}>
               <div className={styles.SaveBtn}>
@@ -354,6 +301,5 @@ const Index = ({ closeModal, editedData }) => {
     </form>
   );
 };
-
 
 export default Index;
