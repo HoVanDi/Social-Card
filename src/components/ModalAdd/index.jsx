@@ -5,9 +5,11 @@ import styles from "./style.module.css";
 const Index = ({ closeModal }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [uploadedImageNameProfile, setUploadedImageNameProfile] = useState(null);
+  const [uploadedImageNameProfile, setUploadedImageNameProfile] =
+    useState(null);
   const [hasUploadedProfile, setHasUploadedProfile] = useState(false);
-  const [uploadedImageNameContent, setUploadedImageNameContent] = useState(null);
+  const [uploadedImageNameContent, setUploadedImageNameContent] =
+    useState(null);
   const [hasUploadedContent, setHasUploadedContent] = useState(false);
 
   const handleImageUploadProfile = (e) => {
@@ -135,8 +137,8 @@ const Index = ({ closeModal }) => {
       localStorage.setItem("cardData", JSON.stringify(updatedData));
       resetForm();
       console.log("Thông tin đã được lưu:", newDataItem);
+      window.location.reload();
       closeModal();
-      window.location.reload()
     } catch (error) {
       console.error("Lỗi trong quá trình tải lên hình ảnh:", error);
     }
@@ -154,10 +156,7 @@ const Index = ({ closeModal }) => {
   };
 
   return (
-    <form
-      action=''
-      id='form-add'
-    >
+    <form action="" id="form-add">
       <div className={styles.NewCard}>
         <div className={styles.Modal}>
           <div className={styles.modalContent}>
@@ -179,34 +178,28 @@ const Index = ({ closeModal }) => {
                 <div className={styles.CardInput}>
                   <div className={styles.ContentAvatar}>
                     <label
-                      htmlFor='upload-img-profile'
+                      htmlFor="upload-img-profile"
                       className={`${styles.uploadLabel} ${
                         !hasUploadedProfile ? styles.errorText : ""
                       }`}
                     >
                       {hasUploadedProfile ? (
                         <>
-                          <img
-                            src='Images/Upload-solid.svg'
-                            alt='icon_arrow'
-                          />
+                          <img src="Images/Upload-solid.svg" alt="icon_arrow" />
                           <span>{uploadedImageNameProfile}</span>
                         </>
                       ) : (
                         <>
-                          <img
-                            src='Images/Upload-solid.svg'
-                            alt='icon_arrow'
-                          />
+                          <img src="Images/Upload-solid.svg" alt="icon_arrow" />
                           <div className={styles.Decription}>Upload image</div>
                         </>
                       )}
                     </label>
 
                     <input
-                      type='file'
-                      id='upload-img-profile'
-                      accept='image/*'
+                      type="file"
+                      id="upload-img-profile"
+                      accept="image/*"
                       className={`${styles.hiddenInput} ${styles.fileNameInput}`}
                       onChange={handleImageUploadProfile}
                     />
@@ -218,7 +211,7 @@ const Index = ({ closeModal }) => {
                     }`}
                   >
                     <input
-                      type='text'
+                      type="text"
                       value={name}
                       onChange={handleNameChange}
                     />
@@ -239,34 +232,28 @@ const Index = ({ closeModal }) => {
                     className={`${styles.ContentAvatar} ${styles.ContentImg}`}
                   >
                     <label
-                      htmlFor='upload-img-content'
+                      htmlFor="upload-img-content"
                       className={`${styles.uploadLabel} ${
                         !hasUploadedContent ? styles.errorText : ""
                       }`}
                     >
                       {hasUploadedContent ? (
                         <>
-                          <img
-                            src='Images/Upload-solid.svg'
-                            alt='icon_arrow'
-                          />
+                          <img src="Images/Upload-solid.svg" alt="icon_arrow" />
                           <span>{uploadedImageNameContent}</span>
                         </>
                       ) : (
                         <>
-                          <img
-                            src='Images/Upload-solid.svg'
-                            alt='icon_arrow'
-                          />
+                          <img src="Images/Upload-solid.svg" alt="icon_arrow" />
                           <div className={styles.Decription}>Upload image</div>
                         </>
                       )}
                     </label>
 
                     <input
-                      type='file'
-                      id='upload-img-content'
-                      accept='image/*'
+                      type="file"
+                      id="upload-img-content"
+                      accept="image/*"
                       className={styles.hiddenInput}
                       onChange={handleImageUploadContent}
                     />
@@ -281,17 +268,11 @@ const Index = ({ closeModal }) => {
 
             <div className={styles.Btn}>
               <div className={styles.SaveBtn}>
-                <button
-                  type='submit'
-                  onClick={handleSaveClick}
-                >
+                <button type="submit" onClick={handleSaveClick}>
                   Save
                 </button>
               </div>
-              <div
-                className={styles.CancelBtn}
-                onClick={closeModal}
-              >
+              <div className={styles.CancelBtn} onClick={closeModal}>
                 Cancel
               </div>
             </div>
